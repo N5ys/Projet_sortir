@@ -1,0 +1,36 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}{{ parent() }} | Suppressing user "{{ user.pseudo }}"{% endblock %}
+
+{% block body %}
+    <div class="data-view-wrapper">
+        <div class="data-view-container">
+
+            <div class="data-view-action-content">
+                <h1 class="data-view-action-title">
+                    Suppressing user "{{ user.pseudo }}"
+                </h1>
+
+                <p class="data-view-action-message">
+                    Are you sure you want to delete {{ user.pseudo }} with email "{{ user.email }}" ?
+                </p>
+
+                <div class="data-view-delete-form">
+                    <form method="post" action="{{ path('admin_confirm_delete', {'id': user.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+
+                        <button type="submit" class="data-view-button-delete">
+                            Yes, confirm suppression
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-view-bottom-section">
+            <a href="{{ path('admin_dashboard') }}" class="button-back">
+                Back to list
+            </a>
+        </div>
+    </div>
+{% endblock %}

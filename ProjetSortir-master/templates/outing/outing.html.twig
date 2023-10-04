@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+        <div class="filter-outings">
+            <div class="filters-title">
+                <p>Bonjour {{ app.user.firstname }}</p>
+                <p>Date : {{ "now" | date('d/m/y H:i') }}</p>
+                {% if is_granted('ROLE_ORGANISATEUR') %}
+                    <a href="{{ path('outing_create') }}" title="Create Outing" class="outing-list-btn">Create
+                        outing</a>
+                {% endif %}
+            </div>
+            {{ form_start(form) }}
+            {{ form_row(form.q, {'attr': {'placeholder': 'Search'}}) }}
+            {{ form_row(form.campus) }}
+            {{ form_row(form.dateMin) }}
+            {{ form_row(form.dateMax) }}
+            {% for field in ['organizer', 'planned', 'notRegistered', 'past', 'pastMonth'] %}
+                <div class="checkboxes">
+
+                    {{ form_row(form[field], {'attr':{'class' : 'checkboxes'}}) }}
+                </div>
+            {% endfor %}
+            <input type="submit" value="Filter">
+            {{ form_end(form) }}
+        </div>
+
+        <div class="outing-container">
+
+            <section class="outings-list">
+                {% for outing in outings %}
+                    <article class="outing-card">
+                        <h3 class="outing-title">
+                            <div class="info-line">
+                                <i class="fas fa-route"></i>
+                                <a href="{{ path('outing_detail', {id: outing.id}) }}">{{ outing.nom }}</a>
+                            </div>
+                        </h3>
+                        <div class="outing-text">
+                            <div class="info-line"><i class="fas fa-calendar-alt"></i>  {{ outing.dateHeureDebut | date('d/m/y') }} à {{ outing.dateHeureDebut | date('H:i') }}</div>
+                            <div class="info-line"><i class="fa-regular fa-calendar-xmark"></i>  {{ outing.dateLimiteInscription | date('d/m/y') }} à {{ outing.dateLimiteInscription | date('H:i') }}</div>
+                            <div class="info-line"><i class="fas fa-user-friends"></i>  {{ outing.attendees.count }}/{{ outing.nbInscriptionMax }}</div>
+                            <div class="info-line"><i class="fas fa-clock"></i>  {{ outing.formattedDuration }}</div>
+                            <div class="info-line"><i class="fas fa-map-marker-alt"></i>  {{ outing.place.nom }}</div>
+                            <div class="info-line"><i class="fas fa-university"></i>  {{ outing.campus.nom }}</div>
+                            {% if outing.status.libelle == 'Ouverte' %}
+                                <div class="info-line"><i class="fas fa-lock-open"></i>  {{ outing.status.libelle }}</div>
+                                {% elseif outing.status.libelle == 'Clôturée' %}
+                                <div class="info-line"><i class="fas fa-lock"></i>  {{ outing.status.libelle }}</div>
+                                {% elseif outing.status.libelle == 'Activité en cours' %}
+                                <div class="info-line"><i class="fas fa-spinner"></i>  {{ outing.status.libelle }}</div>
+                                {% elseif outing.status.libelle == 'Passée' %}
+                                <div class="info-line"><i class="fas fa-check"></i>  {{ outing.status.libelle }}</div>
+                                {% elseif outing.status.libelle == 'Annulée' %}
+                                <div class="info-line"><i class="fas fa-times"></i>  {{ outing.status.libelle }}</div>
+                            {% else %}
+                                <div class="info-line"><i class="fas fa-question"></i>  {{ outing.status.libelle }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="outing-infos-list">
+                            {% if app.user and outing.status.libelle == 'Ouverte' and outing.dateLimiteInscription > 'now'|date('Y-m-d H:i:s') %}
+                                {% if app.user in outing.attendees %}
+                                    <a href="{{ path('outing_confirm_unregister', {id: outing.id}) }}" class="outing-list-btn">
+                                        <div class="info-outing-list-btn">
+                                            <i class="fas fa-sign-out-alt"></i> Se désister
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('outing_register', {id: outing.id}) }}" class="outing-list-btn">
+                                        <div class="info-outing-list-btn">
+                                            <i class="fas fa-sign-in-alt"></i> S'inscrire
+                                        </div>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if app.user == outing.organizer and outing.status.libelle == 'Créée' %}
+                                <a href="{{ path('outing_edit', {id: outing.id}) }}" class="outing-list-btn">
+                                    <div class="info-outing-list-btn">
+                                        <i class="fas fa-edit"></i> Modifier
+                                    </div>
+                                </a>
+                                <a href="{{ path('outing_publish', {id: outing.id}) }}" class="outing-list-btn">
+                                    <div class="info-outing-list-btn">
+                                        <i class="fas fa-upload"></i> Publier
+                                    </div>
+                                </a>
+                                <a href="{{ path('outing_cancel', {id: outing.id}) }}" class="outing-list-btn">
+                                    <div class="info-outing-list-btn">
+                                        <i class="fas fa-ban"></i> Annuler
+                                    </div>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+
+            </section>
+        </div>
+{% endblock %}

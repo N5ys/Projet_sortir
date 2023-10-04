@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
+{% endblock %}
+
+{% block title %}
+   {{ parent() }} | Create an Outing
+{% endblock %}
+
+{% block body %}
+    <div class="data-view-wrapper">
+        <div class="data-view-container">
+            <div class="data-view-action-content">
+                <h1 class="data-view-action-title">
+                Créer une sortie
+                </h1>
+    <div class="data-view-add-form">
+        {{ form_start(outingForm, {'attr': {'class': 'form-container'}}) }}
+        <div>
+            <div class="form-group">
+                {{ form_label(outingForm.nom) }}
+                {{ form_widget(outingForm.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(outingForm.dateHeureDebut) }}
+                {{ form_widget(outingForm.dateHeureDebut) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(outingForm.duree) }}
+                {{ form_widget(outingForm.duree) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(outingForm.dateLimiteInscription) }}
+                {{ form_widget(outingForm.dateLimiteInscription) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(outingForm.nbInscriptionMax) }}
+                {{ form_widget(outingForm.nbInscriptionMax) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(outingForm.infosSortie) }}
+                {{ form_widget(outingForm.infosSortie) }}
+            </div>
+        </div>
+        <div>
+            <div class="info-container">
+                <h3>Campus</h3>
+                <p>{{ app.user.campus.nom }}</p>
+            </div>
+            <div class="form-group">
+                {{ form_label(outingForm.city) }}
+                {{ form_widget(outingForm.city) }}
+            </div>
+
+            <div class="place-container">
+                {{ form_label(outingForm.place) }}
+                {{ form_widget(outingForm.place) }}
+                <button type="button" class="icon-button">
+                    <a href="{{ path('place_add') }}"><i class="fas fa-plus-circle"></i></a>
+                </button>
+            </div>
+
+
+            <div class="infos-container"></div>
+            <div class="info-container">
+                <h3>Rue :</h3>
+                <p id="street_display"></p>
+            </div>
+            <div class="info-container">
+                <h3>Code Postal :</h3>
+                <p id="postal_code_display"></p>
+            </div>
+            <div class="info-container">
+                <h3>Latitude :</h3>
+                <p id="latitude_display"></p>
+            </div>
+            <div class="info-container">
+                <h3>Longitude :</h3>
+                <p id="longitude_display"></p>
+            </div>
+        </div>
+        <div class="button-container">
+            <input type="submit" name="save" value="Enregistrer"><hr>
+            <input type="submit" name="publish" value="Publier" ><hr>
+            <input type="submit" name="cancel" value="Annuler" > <hr>
+        </div>
+
+        {{ form_end(outingForm) }}
+    </div>
+
+
+    {# <!-- Modal -->
+    <div class="modal fade" id="placeModal" tabindex="-1" aria-labelledby="placeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="placeModalLabel">Nouveau lieu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form(outingForm.newPlace) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div> #}
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var places = {
+            {% for place in places %}
+            '{{ place.id }}': {
+                'street': '{{ place.rue }}',
+                'postal_code': '{{ place.city.codePostal }}',
+                'latitude': '{{ place.latitude }}',
+                'longitude': '{{ place.longitude }}'
+            },
+            {% endfor %}
+        }
+
+        $('#outing_place').change(function () {
+            console.log('Le lieu a changé.');
+            var selectedPlaceId = $(this).val();
+            if (selectedPlaceId) {
+                var selectedPlace = places[selectedPlaceId];
+                $('#street_display').text(selectedPlace.street);
+                $('#postal_code_display').text(selectedPlace.postal_code);
+                $('#latitude_display').text(selectedPlace.latitude);
+                $('#longitude_display').text(selectedPlace.longitude);
+            }
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,506 @@
+/*
+Custom Properties
+*/
+:root {
+    /* COLORS */
+
+    --Dusty-Blue: #5585b5;
+    --Verdigris: #53a8b6;
+    --Blue-Hosta: #79c2d0;
+    --Turquoise-Green: #9fd3c7;
+    --Jagged-Ice: #bbe4e9;
+    --Light-Teal: #93e4c1;
+    --Light-Sea-Green: #3baea0;
+    --Blue-Green-Chill: #118a7e;
+    --Surfie-Green: #1f6f78;
+    --Green-Flash: #a2c11c;
+    --Black: #283739;
+    --white: #f8fcfb;
+    --Gray-Lavender: #e0e0e0;
+    --Red-Flash: #dc2f2f;
+    --Yellow-Flash: #f0d43a;
+    --gray-peach: #ececec;
+    --fushia: #ff00ff;
+
+
+    /*
+    GRADIENT
+     */
+    --Gradient-1: radial-gradient(328px at 2.9% 15%, rgb(191, 224, 251) 0%, rgb(232, 233, 251) 25.8%, rgb(252, 239, 250) 50.8%, rgb(234, 251, 251) 77.6%, rgb(240, 251, 244) 100.7%);
+    --Gradient-2: linear-gradient(109.6deg, rgb(245, 239, 249) 30.1%, rgb(207, 211, 236) 100.2%);
+    --Gradient-3: linear-gradient(109.6deg, rgb(204, 228, 247) 11.2%, rgb(237, 246, 250) 100.2%);
+    --Gradient-4: linear-gradient(89.2deg, rgb(191, 241, 236) 22.3%, rgb(109, 192, 236) 84.1%);
+    --Gradient-5: linear-gradient(to right top, #5585b5, #659ec3, #7db6cf, #9acddb, #bbe4e9);
+    --Gradient-6: linear-gradient(109.6deg, rgb(44, 83, 131) 18.9%, rgb(95, 175, 201) 91.1%);
+    --Gradient-7: linear-gradient(to right top, #283739, #3b5f5f, #518983, #6eb6a4, #93e4c1);
+    --Gradient-8: radial-gradient(circle, #f8fcfb, #c4d7d5, #91b4b2, #5d9194, #1f6f78);
+    --Gradient-9: linear-gradient(to left bottom, #5585b5, #549bbe, #64afc1, #7fc2c3, #9fd3c7);
+    --Gradient-10: radial-gradient(circle, #1f6f78, #207b81, #238689, #289291, #2f9e98, #40a7a8, #52b1b8, #65bac6, #8dc2d6, #b2c9de, #ced3df, #e0e0e0);
+    --Gradient-11: radial-gradient(circle, #1f6f78, #555186, rgb(57, 52, 143), #2a2389, #2f9e98, #40a7a8, #52b1b8, #65bac6, #8dc2d6, #b2c9de, #ced3df, #e0e0e0);
+
+
+}
+
+/*SECTION DEBUG CSS - START*/
+
+/** {*/
+/*    outline: solid .1px;*/
+/*}*/
+
+/*SECTION DEBUG CSS - END*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Handlee', cursive;
+    background-image: linear-gradient(rgba(31, 111, 120, 0.8), rgba(40, 55, 57, 0.8)), url("https://images.pexels.com/photos/4881670/pexels-photo-4881670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--gray-peach);
+    font-size: 1.25em;
+}
+
+li {
+    list-style-type: none;
+}
+
+body > .container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+
+}
+
+a {
+    text-decoration: none;
+    color: var(--gray-peach);
+}
+
+header {
+    color: var(--white);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+footer {
+    color: var(--white);
+    text-align: center;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 -5px 15px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 40px;
+    flex: 1;
+}
+
+/*preload*/
+.preload {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--Surfie-Green);
+    z-index: 10;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    transition: 500ms ease;
+}
+
+.preload > * {
+    transition: 250ms ease;
+}
+
+.preload.loaded > * {
+    opacity: 0;
+}
+
+.preload.loaded {
+    transition-delay: 250ms;
+    transform: translateY(100%);
+}
+
+.circle {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    border: 3px solid var(--gray-peach);
+    border-block-start-color: var(--Verdigris);
+    margin-block-end: 45px;
+    animation: rotate360 1s linear infinite;
+
+}
+
+@keyframes rotate360 {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+.preload .text {
+
+
+    background-size: 500%;
+    font-size: calc(2rem + 3vw);
+    font-weight: 700;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: 16px;
+    padding-inline-start: 16px;
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation: loadingText linear 1.7s infinite;
+
+}
+
+@keyframes loadingText {
+    0% {
+        opacity: 100%;
+    }
+    50% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+header a img {
+    width: 60px;
+    height: 60px;
+}
+
+/*ERROR IN REGISTRATION FORM - START*/
+/* Parent - padding a 0 pour reset la position au centre*/
+#registration_form ul {
+    background: rgba(220, 47, 47, .35);
+    color: var(--white);
+
+    font-size: 1em;
+    padding: 0;
+}
+
+/* Child with text */
+#registration_form ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: .85em;
+    padding: .5em;
+}
+
+/*ERROR IN REGISTRATION FORM - END*/
+
+/* Removes the black outline */
+input, .btn{
+    outline: none;
+
+}
+
+input:focus, .btn {
+    border: solid 2px var(--Dusty-Blue);
+}
+
+input:hover, .btn {
+    outline: solid 1px var(--Blue-Hosta);
+}
+
+input[type="submit"], .btn {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 1.5em;
+
+    padding: 0.5em 1em;
+    background-color: var(--Light-Sea-Green);
+    color: var(--gray-peach);
+    font-family: 'Edu SA Beginner', cursive, Serif;
+    font-size: 0.8em;
+    transition: color 0.4s linear;
+
+    /*color: var(--white);*/
+    /*background: var(--Light-Sea-Green);*/
+}
+
+input[type="submit"]:hover {
+    display: inline-block;
+    cursor: pointer;
+
+    color: var(--Light-Sea-Green);
+    background: var(--white);
+
+}
+
+
+::placeholder {
+    color: grey;
+    opacity: .5;
+}
+
+.form-block {
+    margin: 2em 0;
+    padding: 1em 2em;
+    border: solid 1px var(--Light-Sea-Green);
+    border-radius: 6px;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--gray-peach);
+}
+
+.form-title {
+    font-size: 2.25em;
+    padding: 0 .25em;
+    color: var(--gray-peach)
+}
+
+label:not([class="input-file"]) {
+    display: block;
+    margin-top: 1em;
+}
+
+label:first-of-type {
+    margin-top: 0;
+}
+
+input, textarea, select {
+    padding: 0.3em;
+    border: solid 2px var(--Light-Sea-Green);
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+
+/* Each input that are not of type SUBMIT and HAVE a value */
+input:not([type="submit"]):not([value=""]) {
+    font-size: 80%;
+    padding-left: 2%;
+    padding-top: .5em;
+    padding-right: 0;
+    height: 25px;
+
+    /* include the padding-left to reposition the input value starting point
+    * width = 100 - ( padding-left + offset = 1 )
+    * The reason ? : Align these input to error messages
+    */
+    width: 97%;
+}
+
+.form-text-area {
+    resize: none;
+}
+
+@media screen and (min-width: 430px) {
+    .form-title {
+        font-size: 1.75em;
+    }
+
+    .form-block {
+        width: 40%;
+        min-width: 320px;
+        margin: auto;
+        text-align: center;
+        background-color: rgba(40, 55, 57, 0.3);
+    }
+
+    label {
+        display: inline-block;
+        padding-top: 1em;
+        margin-top: 0;
+        margin-right: 0.5em;
+    }
+}
+
+.profile {
+
+    padding: 1em 2em;
+    border: solid 1px var(--Light-Sea-Green);
+    border-radius: 6px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--gray-peach);
+    margin: auto;
+
+}
+
+.profile li {
+    display: block;
+    margin-top: 1em;
+}
+
+/* Admin User Table */
+
+.table-container {
+    padding: 5px;
+}
+
+.table-list-container {
+    max-height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    border-radius: 10px;
+}
+
+.table thead th {
+    background: rgba(40, 55, 57, 1);
+}
+
+.table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Admin User Filters */
+.d-none {
+    display: none;
+}
+
+#filter-form {
+    transition: all 1s ease-in-out;
+    transform: translateY(-20px);
+    opacity: 0;
+    display: none;
+}
+
+#filter-form.visible {
+    transform: translateY(0);
+    opacity: 1;
+    display: block;
+}
+
+/* Map for place details */
+
+#mapId {
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Outing form */
+.editing-data-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.editing-data-form-container .form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.editing-data-form-container label {
+    margin-right: 20px;
+}
+
+.editing-data-form-container input,
+.editing-data-form-container select {
+    flex-grow: 1;
+}
+
+.place-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.5em;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-success {
+    background: linear-gradient(to right, #11998e, #38ef7d);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.btn-success:hover {
+    background: linear-gradient(to right, #38ef7d, #11998e);
+    color: black;
+}
+
+.infos-container {
+    margin-top: 20px;
+}
+
+.info-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.info-container h3 {
+    margin-right: 10px;
+}
+
+.alert-success{
+    color: var(--Green-Flash);
+    animation: fadeInSlideUp 0.5s ease;
+}
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

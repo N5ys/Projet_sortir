@@ -1,0 +1,16 @@
+<nav>
+    <ul>
+        <li><a href="{{ path('outing_list') }}" title="home">Home</a></li>
+        {% if app.user %}
+            <li><a href="{{ path('user_profile', {'username': app.user.pseudo}) }}" title="Profile">Profile</a></li>
+
+            {% if is_granted("ROLE_ADMIN") %}
+                <li><a href="{{ path('admin_dashboard') }}" title="Dashboard">Admin</a></li>
+            {% endif %}
+
+            <li><a href="{{ path('app_logout') }}" title="Logout">Logout</a></li>
+        {% else %}
+            <li><a href="{{ path('app_login') }}" title="Login">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    {% include('admin/inc/nav.html.twig') %}
+{% endblock %}
+
+{% block title %} {{ parent() }} | Admin Panel {% endblock %}
+
+{% block body %}
+    <div class="dashboard-wrapper">
+
+        <div class="dbc-selected" hidden="hidden"></div>
+        <div class="dbc-not-selected" hidden="hidden"></div>
+
+        <div class="dashboard-container">
+
+            <div class="dashboard-nav">
+                <ul id="dashboard-buttons">
+                    <li>
+                        <button title="Display all users">
+                            Users
+                        </button>
+                    </li>
+
+                    <li>
+                        <button title="Display all cities">
+                            Cities
+                        </button>
+                    </li>
+                    <li>
+                        <button title="Display all campuses">
+                            Campuses
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="dashboard-main">
+                <div class="dashboard-content">
+                    <div id="dashboard-contents-parent">
+
+                        <section class="content-section" id="users-section">
+                            {% include 'admin/user/list_user.html.twig' %}
+                        </section>
+
+                        <section class="content-section" id="cities-section">
+                            {% include 'admin/city/city_list.html.twig' %}
+                        </section>
+
+                        <section class="content-section" id="campuses-section">
+                            {% include 'admin/campus/index.html.twig' %}
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('JS/admin/adminUserListHandler.js') }}"></script>
+    <script src="{{ asset('JS/admin/dashboardBehaviours.js') }}"></script>
+{% endblock %}

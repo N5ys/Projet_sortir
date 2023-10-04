@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se désister{% endblock %}
+
+{% block body %}
+    <h1>Confirmer le désistement</h1>
+    <p>Êtes-vous sûr de vouloir vous désister de la sortie "{{ outing.nom }}" ?</p>
+
+    <a href="{{ path('outing_unregister', {id: outing.id}) }}" class="btn btn-warning">Oui, je veux me désister</a>
+    <a href="{{ path('outing_detail', {id: outing.id}) }}" class="btn btn-secondary">Non, je ne veux pas me désister</a>
+
+{% endblock %}
+

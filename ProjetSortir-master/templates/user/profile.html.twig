@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{app.user.firstName}} ! | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+
+<section class="profile">
+    <strong>{{ app.user.pseudo }}</strong>
+
+    <ul>
+        <li>
+            <img src="{{ asset('uploads/profile/photos/' ~ app.user.photo) }}" alt="{{ app.user.firstName }}" style="max-width:200px;">
+        </li>
+        <li><strong>Firstname :</strong> {{ app.user.firstName }}</li>
+        <li><strong>Name :</strong> {{ app.user.lastName }}</li>
+        <li><strong>Phone :</strong> {{ app.user.telephone }}</li>
+        <li><strong>Email :</strong> {{ app.user.email }}</li>
+        <li><strong>Campus :</strong> {% if app.user.campus %}{{ app.user.campus.nom }}{% else %}Aucun{% endif %}</li>
+    </ul>
+
+    {% if app.user == user %}
+        <input type="submit" class="btn" value="Modify" onclick="location.href='{{ path('user.edit', {id: user.id}) }}'">
+    {% endif %}
+</section>
+{% endblock %}

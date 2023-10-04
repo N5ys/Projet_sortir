@@ -1,0 +1,29 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Editing campus "{{ campus.nom }}"
+{% endblock %}
+
+{% block body %}
+    <div class="data-view-wrapper">
+        <div class="data-view-container">
+            <h1>Editing campus "{{ campus.nom }}"</h1>
+
+            <div class="data-view-content">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+            </div>
+            <section class="data-view-button-section">
+                <button type="submit" class="button-save">
+                    Save modifications
+                </button>
+            </section>
+            {{ form_end(form) }}
+        </div>
+        <div class="data-view-bottom-section">
+            <a href="{{ path('admin_dashboard') }}" class="button-back">
+                Back to list
+            </a>
+        </div>
+    </div>
+{% endblock %}

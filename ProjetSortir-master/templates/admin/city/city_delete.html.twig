@@ -1,0 +1,38 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Suppressing city "{{ city.nom }}"
+{% endblock %}
+
+{% block body %}
+    <div class="data-view-wrapper">
+        <div class="data-view-container">
+            <div class="data-view-action-content">
+                <h1 class="data-view-action-title">
+                    Suppressing city "{{ city.nom }}"
+                </h1>
+
+                <p class="data-view-action-message">
+                    Are you sure you want to delete the city "{{ city.nom }}"?
+                </p>
+
+                <div class="data-view-delete-form">
+                    <form method="post" action="{{ path('admin_city_confirm_delete', { id: city.id }) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ city.id) }}">
+
+                        <button type="submit" class="data-view-button-delete">
+                            Yes, confirm suppression
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-view-bottom-section">
+            <a href="{{ path('admin_dashboard') }}" class="button-back">
+                Back to list
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
